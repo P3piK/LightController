@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace LightController
 {
@@ -30,13 +32,14 @@ namespace LightController
 
         #region Fields
 
+        private LightTimer lightTimer;
         private ILightService lightService;
 
         #endregion
 
         #region Properties 
-         
-        private ILightService LightService 
+
+        private ILightService LightService
         {
             get
             {
@@ -49,47 +52,91 @@ namespace LightController
             }
         }
 
+        private LightTimer LightTimer
+        {
+            get
+            {
+                if (lightTimer == null)
+                {
+                    lightTimer = new LightTimer() 
+                    { 
+                        LightService = LightService,
+                        TranslateTemperatures = TranslateTemperatures
+                    };
+                }
+
+                return lightTimer;
+            }
+        }
+
         #endregion
 
         private void startButton_Click(object sender, RoutedEventArgs e)
         {
-            // async..
             LightService.Run();
 
-            // todo..
             EnableStatusControlls();
+            StartTimer();
         }
 
         private void stopButton_Click(object sender, RoutedEventArgs e)
         {
-            // async..
             LightService.Stop();
 
-            // todo..
             DisableStatusControlls();
+            StopTimer();
         }
-        
-        private void checkButton_Click(object sender, RoutedEventArgs e)
-        {
-            var data = LightService.GetTemperatures();
 
+        private async void checkButton_Click(object sender, RoutedEventArgs e)
+        {
+            var data = await LightService.GetTemperaturesAsync();
+
+            UpdateTemperatures(data);
+        }
+
+        #region Timer
+
+        private void StartTimer()
+        {
+            LightTimer.Start();
+        }
+
+        private void StopTimer()
+        {
+            LightTimer.Stop();
+        }
+
+        #endregion
+
+        #region Private
+
+        private void UpdateTemperatures(Service.Dto.TemperatureDto data)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void TranslateTemperatures(Service.Dto.TemperatureDto data)
+        {
             cpuTempTextBox.Text = data.CpuTemp.ToString();
         }
-
-        #region Private 
 
         private void EnableStatusControlls()
         {
             statusTextBox.Text = "Running";
             statusEllipse.Fill = new SolidColorBrush(Colors.LightGreen);
+
+            checkButton.IsEnabled = true;
         }
 
         private void DisableStatusControlls()
         {
             statusTextBox.Text = "Not running";
             statusEllipse.Fill = new SolidColorBrush(Colors.LightGray);
+
+            checkButton.IsEnabled = false;
         }
 
         #endregion
+
     }
 }

@@ -5,17 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LightController"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Light Controller" Height="450" Width="800"
+        Icon="resources/img_colormap.gif">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="343*"/>
+            <ColumnDefinition Width="53*"/>
+        </Grid.ColumnDefinitions>
         <Button x:Name="startButton" Content="Start" HorizontalAlignment="Left" Margin="99,101,0,0" VerticalAlignment="Top" Width="75" Click="startButton_Click"/>
         <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Margin="99,126,0,0" VerticalAlignment="Top" Width="75" Click="stopButton_Click"/>
         <TextBox x:Name="statusTextBox" HorizontalAlignment="Left" Height="23" Margin="241,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="82" IsEnabled="False" Text="Not running"/>
         <Ellipse x:Name="statusEllipse" Fill="White" HorizontalAlignment="Left" Height="22" Margin="328,101,0,0" Stroke="Black" VerticalAlignment="Top" Width="23"/>
-        <Button x:Name="checkButton" Content="Check" HorizontalAlignment="Left" Margin="248,226,0,0" VerticalAlignment="Top" Width="75" Click="checkButton_Click"/>
-        <TextBox x:Name="cpuTempTextBox" HorizontalAlignment="Left" Height="23" Margin="353,226,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="checkButton" Content="Check" HorizontalAlignment="Left" Margin="248,226,0,0" VerticalAlignment="Top" Width="75" Click="checkButton_Click" IsEnabled="False"/>
+        <TextBox x:Name="cpuTempTextBox" HorizontalAlignment="Left" Height="23" Margin="353,226,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" IsEnabled="False"/>
         <Label x:Name="cpuTempLabel" Content="CPU" HorizontalAlignment="Left" Margin="445,223,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="gpuTempTextBox" HorizontalAlignment="Left" Height="23" Margin="353,252,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75"/>
+        <TextBox x:Name="gpuTempTextBox" HorizontalAlignment="Left" Height="23" Margin="353,252,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="75" IsEnabled="False"/>
         <Label x:Name="gpuTempLabel" Content="GPU" HorizontalAlignment="Left" Margin="445,249,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="copyrightLabel" Content="powered by P3p!K. © All right reserved." HorizontalAlignment="Left" Margin="457,386,0,0" VerticalAlignment="Top" Width="229" FontSize="9"/>
 
     </Grid>
 </Window>

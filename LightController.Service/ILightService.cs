@@ -12,5 +12,6 @@ namespace LightController.Service
         void Run();
         void Stop();
         TemperatureDto GetTemperatures();
+        Task<TemperatureDto> GetTemperaturesAsync();
     }
 }
